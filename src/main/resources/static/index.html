@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <title>Cadastro de Cavalo</title>
+</head>
+<body>
+<h1>Cadastro de Cavalo</h1>
+<form id="formCavalo">
+    <label>Nome:<br/>
+        <input type="text" name="nome" required />
+    </label><br/><br/>
+
+    <label>Raça:<br/>
+        <input type="text" name="raca" required />
+    </label><br/><br/>
+
+    <label>Documento:<br/>
+        <input type="text" name="documento" required />
+    </label><br/><br/>
+
+    <label>Preço:<br/>
+        <input type="number" step="0.01" name="preco" required />
+    </label><br/><br/>
+
+    <label>Vendedor ID:<br/>
+        <input type="number" name="vendedorId" required />
+    </label><br/><br/>
+
+    <button type="submit">Cadastrar</button>
+</form>
+
+<div id="resultado" style="margin-top:20px;"></div>
+
+<script>
+    const form = document.getElementById('formCavalo');
+    const resultado = document.getElementById('resultado');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+        const data = {
+            nome: formData.get('nome'),
+            raca: formData.get('raca'),
+            documento: formData.get('documento'),
+            preco: parseFloat(formData.get('preco')),
+            vendedorId: parseInt(formData.get('vendedorId')),
+            vendido: false
+        };
+
+        try {
+            const res = await fetch('http://localhost:8080/cavalos/cadastrar', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            if (!res.ok) throw new Error('Erro ao cadastrar cavalo');
+
+            const cavalo = await res.json();
+
+            // Monta mensagem para WhatsApp pro seu número
+            const mensagem = `Olá, tenho interesse no cavalo:\n` +
+                `ID: ${cavalo.id}\n` +
+                `Nome: ${cavalo.nome}\n` +
+                `Raça: ${cavalo.raca}\n` +
+                `Preço: R$${cavalo.preco.toFixed(2)}`;
+
+            // Encode para URL do WhatsApp com seu número fixo
+            const numeroWhats = '47988207833';
+            const linkWhats = `https://wa.me/${numeroWhats}?text=${encodeURIComponent(mensagem)}`;
+
+            resultado.innerHTML = `
+          <p><b>Cavalo cadastrado com sucesso!</b></p>
+          <p>ID: ${cavalo.id}</p>
+          <p><a href="${linkWhats}" target="_blank">Enviar mensagem para WhatsApp</a></p>
+        `;
+        } catch (err) {
+            resultado.textContent = 'Erro: ' + err.message;
+        }
+    });
+</script>
+</body>
+</html>
