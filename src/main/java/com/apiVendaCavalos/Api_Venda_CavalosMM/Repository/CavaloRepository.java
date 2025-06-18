@@ -10,5 +10,8 @@ import java.util.List;
 @Repository
 public interface CavaloRepository extends JpaRepository<CavaloEntity, Long> {
     List<CavaloEntity> findByVendidoFalse();
+
+    List<CavaloEntity> findByNomeContainingIgnoreCaseOrDocumentoContainingIgnoreCase(String nome, String documento);
+
 }
 

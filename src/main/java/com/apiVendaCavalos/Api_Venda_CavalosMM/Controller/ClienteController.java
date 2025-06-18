@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/clientes")
 public class ClienteController {
@@ -18,5 +20,9 @@ public class ClienteController {
         ClienteEntity salvo = clienteRepository.save(cliente);
         return ResponseEntity.ok(salvo);
     }
-}
 
+    @GetMapping("/todos")
+    public List<ClienteEntity> listarTodosClientes() {
+        return clienteRepository.findAll();
+    }
+}

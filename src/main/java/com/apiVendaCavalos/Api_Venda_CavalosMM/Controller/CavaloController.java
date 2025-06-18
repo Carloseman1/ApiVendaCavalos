@@ -47,6 +47,11 @@ public class CavaloController {
 
         return ResponseEntity.ok(dadosVenda);
     }
+    @GetMapping("/test")
+    public String teste() {
+        return "API funcionando!";
+    }
+
 
     @PostMapping("/comprar/{id}")
     public ResponseEntity<?> comprar(@PathVariable Long id, @RequestParam String metodoPagamento) {
@@ -63,9 +68,6 @@ public class CavaloController {
         BigDecimal comissao = valorTotal.multiply(BigDecimal.valueOf(0.1));
         BigDecimal valorVendedor = valorTotal.subtract(comissao);
 
-        // TODO: Integrar com sistema de pagamentos (Pix, Cartão, Boleto)
-        // TODO: Gerar contrato de compra e assinatura digital
-
         Map<String, Object> resultado = new HashMap<>();
         resultado.put("valorTotal", valorTotal);
         resultado.put("comissao", comissao);
@@ -74,12 +76,18 @@ public class CavaloController {
 
         return ResponseEntity.ok(resultado);
     }
-    @GetMapping("/documentos/{numero}")
-    public ResponseEntity<?> buscarDocumento(@PathVariable String numero) {
-        Optional<Map<String, String>> dadosDoc = documentoService.buscarDocumentoDetalhado(numero);
+
+    @GetMapping("/documentos")
+    public ResponseEntity<?> buscarDocumento(@RequestParam String numeroDocumento) {
+        System.out.println("Recebido numeroDocumento: " + numeroDocumento);
+        Optional<Map<String, String>> dadosDoc = documentoService.buscarDocumentoDetalhado(numeroDocumento);
         if (dadosDoc.isEmpty()) return ResponseEntity.notFound().build();
         return ResponseEntity.ok(dadosDoc.get());
     }
 
-}
 
+    @GetMapping("/todos")
+    public List<CavaloEntity> listarTodos() {
+        return Repository.findAll();
+    }
+}

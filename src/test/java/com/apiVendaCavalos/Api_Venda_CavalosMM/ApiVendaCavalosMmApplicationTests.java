@@ -10,4 +10,6 @@ class ApiVendaCavalosMmApplicationTests {
 	void contextLoads() {
 	}
 
+
 }
+
