@@ -11,6 +11,7 @@ public class ApiVendaCavalosMmApplication {
 		SpringApplication.run(ApiVendaCavalosMmApplication.class, args);
 	}
 
+
 }
 
 
