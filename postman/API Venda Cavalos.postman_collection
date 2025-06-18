@@ -19,7 +19,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"nome\": \"Relâmpago\",\n  \"raca\": \"Mangalarga\",\n  \"documento\": \"123ABC\",\n  \"preco\": 10000.00,\n  \"vendido\": false,\n  \"vendedorId\": 1\n}"
+					"raw": "{\n  \"nome\": \"\",\n  \"raca\": \"\",\n  \"documento\": \"\",\n  \"preco\": ,\n  \"vendido\": ,\n  \"vendedorId\": \n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/cavalos/cadastrar",
@@ -42,7 +42,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/cavalos/buscar?termo=Relâmpago",
+					"raw": "http://localhost:8080/cavalos/buscar?termo=",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -83,7 +83,7 @@
 			"response": []
 		},
 		{
-			"name": "Vender Cavalo (Obter Dados Venda)",
+			"name": "Vender Cavalo",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -124,6 +124,14 @@
 						{
 							"key": "metodoPagamento",
 							"value": "Pix"
+						},
+						{
+							"key": "metodoPagamento",
+							"value": "Cartao"
+						},
+						{
+							"key": "metodoPagamento",
+							"value": "Boleto"
 						}
 					]
 				}
@@ -142,7 +150,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"nome\": \"João Silva\",\n  \"email\": \"joao@example.com\",\n  \"telefone\": \"47999999999\"\n}"
+					"raw": "{\n  \"nome\": \"\",\n  \"email\": \"\",\n  \"telefone\": \"\"\n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/clientes/cadastrar",
@@ -178,7 +186,7 @@
 					"query": [
 						{
 							"key": "telefone",
-							"value": "47988207833"
+							"value": ""
 						},
 						{
 							"key": "mensagem",
